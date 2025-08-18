@@ -19,18 +19,19 @@ document.addEventListener("DOMContentLoaded", () => {
   completedTasksEl = document.getElementById("completedTasks");
   activeTasksEl = document.getElementById("activeTasks");
   // 各イベントのリスナーを設定
-  clearCompletedBtn.addEventListener("click", clearCompleted);
-  clearAllBtn.addEventListener("click", clearAll);
-  filterBtns.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      setFilter(e.target.dataset.filter);
-    });
-  });
   addBtn.addEventListener("click", addTodo); // 「+」ボタンがクリックされたらaddTodoメソッドを呼び出す
   todoInput.addEventListener("keypress", (e) => {
     console.log(e);
     if (e.key === "Enter") addTodo();
   });
+  filterBtns.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      setFilter(e.target.dataset.filter);
+    });
+  });
+  clearCompletedBtn.addEventListener("click", clearCompleted);
+  clearAllBtn.addEventListener("click", clearAll);
+
   // localStorageからタスクデータを読み込んで描画
   todos = loadTodos();
   renderTodos();

@@ -63,7 +63,7 @@ function renderTodos() {
                    ${todo.completed ? "checked" : ""}
                    onchange="toggleTodo(${todo.id})">
 
-            <span class="todo-text">${todo.text}</span>
+            <span class="todo-text">${escapeHtml(todo.text)}</span>
 
             <div class="todo-actions">
                 <button class="delete-btn" onclick="deleteTodo(${todo.id})">
@@ -117,4 +117,11 @@ function updateStats() {
   totalTasksEl.textContent = total;
   completedTasksEl.textContent = completed;
   activeTasksEl.textContent = active;
+}
+
+// HTMLエスケープ
+function escapeHtml(text) {
+  const div = document.createElement("div");
+  div.textContent = text;
+  return div.innerHTML;
 }

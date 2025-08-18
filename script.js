@@ -19,6 +19,8 @@ document.addEventListener("DOMContentLoaded", () => {
   completedTasksEl = document.getElementById("completedTasks");
   activeTasksEl = document.getElementById("activeTasks");
   // 各イベントのリスナーを設定
+  clearCompletedBtn.addEventListener("click", clearCompleted);
+  clearAllBtn.addEventListener("click", clearAll);
   filterBtns.forEach((btn) => {
     btn.addEventListener("click", (e) => {
       setFilter(e.target.dataset.filter);
@@ -172,5 +174,25 @@ function getFilteredTodos() {
       return todos.filter((t) => t.completed);
     default: // "all" の場合
       return todos;
+  }
+}
+
+// 完了済み削除
+function clearCompleted() {
+  if (confirm("完了済みのタスクをすべて削除しますか？")) {
+    todos = todos.filter((t) => !t.completed); // 未完了のタスクだけを残す
+    saveTodos();
+    renderTodos();
+    updateStats();
+  }
+}
+
+// 全削除
+function clearAll() {
+  if (confirm("すべてのタスクを削除しますか？この操作は元に戻せません。")) {
+    todos = []; // 配列を空にする
+    saveTodos();
+    renderTodos();
+    updateStats();
   }
 }

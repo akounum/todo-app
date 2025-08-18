@@ -24,6 +24,9 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log(e);
     if (e.key === "Enter") addTodo();
   });
+  // localStorageからタスクデータを読み込んで描画
+  todos = loadTodos();
+  renderTodos();
 });
 
 // タスク追加
@@ -39,6 +42,7 @@ function addTodo() {
   };
 
   todos.push(todo); // 配列にタスクを追加
+  saveTodos(); // タスク追加後にデータを保存 ← 追加
   renderTodos(); // タスクを再描画
   todoInput.value = ""; // 入力欄を空にする
 }
@@ -55,4 +59,15 @@ function renderTodos() {
     `
     )
     .join("");
+}
+
+// LocalStorageへの保存
+function saveTodos() {
+  localStorage.setItem("todos", JSON.stringify(todos)); // todos配列をJSON形式の文字列に変換してlocalStorageに保存
+}
+
+// LocalStorageからの読み込み
+function loadTodos() {
+  const todos = localStorage.getItem("todos"); // localStorageからデータを読み込む
+  return todos ? JSON.parse(todos) : []; // JSONオブジェクトに変換して返す
 }
